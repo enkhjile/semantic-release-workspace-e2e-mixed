@@ -7,4 +7,4 @@ edition = "2024"
 license = "MIT"
 description = "Neutral controlled registry acceptance fixture"
 [workspace.dependencies]
-mixed-core = { path = "crates/core", registry = "fixture" }
+mixed-core = { path = "crates/core", registry = "fixture" , version = "0.1.0-alpha.1" }
