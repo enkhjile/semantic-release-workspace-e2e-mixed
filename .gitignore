@@ -1,8 +1,0 @@
-node_modules/
-target/
-.scenarios/
-built.js
-
-evidence/
-
-Cargo.lock
