@@ -1,3 +1,0 @@
-# The runner generates a fresh actual loopback URL in every disposable fixture.
-[registries.fixture]
-index = "sparse+http://127.0.0.1:9/cargo/index/"
