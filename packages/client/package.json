@@ -1,6 +1,6 @@
 {
   "name": "mixed-client",
-  "version": "3.0.0",
+  "version": "3.2.0-alpha3proof.1",
   "type": "module",
   "exports": "./index.js",
   "files": [
