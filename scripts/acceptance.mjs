@@ -14,6 +14,8 @@ const results=[];let seq=0;const servers=[];let publicEsmWorkaround=false;
 const cleanEnv={...process.env,GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:'/dev/null',CI:'false'};
 for(const key of ['GITHUB_ACTIONS','GITHUB_TOKEN','GH_TOKEN','GITLAB_CI','NPM_TOKEN','NODE_AUTH_TOKEN','NPM_ID_TOKEN','SIGSTORE_ID_TOKEN','ACTIONS_ID_TOKEN_REQUEST_URL','ACTIONS_ID_TOKEN_REQUEST_TOKEN','CARGO_REGISTRY_TOKEN','CRATES_IO_ID_TOKEN']) delete cleanEnv[key];
 function command(cwd,cmd,args,env={}) {const r=spawnSync(cmd,args,{cwd,env:{...cleanEnv,...env},encoding:'utf8',timeout:180000,maxBuffer:12*1024*1024}); if(r.status!==0) throw Error(`${cmd} ${args.join(' ')} failed ${r.status}: ${r.stderr||r.stdout||r.error}`);return r.stdout.trim();}
+if(process.env.EXPECTED_NPM)assert.equal(command(root,'npm',['--version']),process.env.EXPECTED_NPM,'Native npm version must match the selected lane');
+if(process.env.EXPECTED_NODE)assert.equal(process.versions.node,process.env.EXPECTED_NODE,'Node version must match the selected lane');
 const git=(cwd,...args)=>command(cwd,'git',args);
 function w(cwd,name,value){const f=join(cwd,name);mkdirSync(dirname(f),{recursive:true});writeFileSync(f,value);}
 function json(cwd,name,value){w(cwd,name,JSON.stringify(value,null,2)+'\n');}
