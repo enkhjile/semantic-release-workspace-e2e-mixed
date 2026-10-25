@@ -1,0 +1,9 @@
+[package]
+name = "mixed-dual"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+publish = ["fixture"]
+[dependencies]
+mixed-core.workspace = true

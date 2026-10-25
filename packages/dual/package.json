@@ -1,0 +1,14 @@
+{
+  "name": "mixed-dual",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": "./index.js",
+  "files": [
+    "index.js",
+    "built.js",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "prepack": "node -e \"require('fs').writeFileSync('built.js',String(require('crypto').randomUUID()))\""
+  }
+}
