@@ -70,7 +70,7 @@ try {
   const after=snapshot(f),count=counters(s);good(f.run('nochange',{directory:f.clone()}));assert.deepEqual(counters(s),count);assert.deepEqual(snapshot(f),after);return {uploads:st.uploads,journal:j.status};
  });
  for(const iteration of [1,2])await run(`mixed-partial-fresh-clone-${iteration}`,async()=>{
-  const s=await service(),f=fixture(s,{mixed:true});s.control('reject-cargo-dual');bad(f.run('partial'));assert.equal(s.state().uploads.length,4);assert.equal(Object.keys(s.state().npm).length,2);const retained=artifacts(f),notes=f.journal().planning;const clone=f.clone();s.control('');good(f.run('retry',{directory:clone}));assert.equal(s.state().uploads.length,5);assertRetained(f,retained);assert.deepEqual(f.journal().planning,notes);assert.equal(f.journal().status,'complete');return {uploads:s.state().uploads,artifacts:retained};
+  const s=await service(),f=fixture(s,{mixed:true});s.control('reject-cargo-dual');bad(f.run('partial'));assert.equal(s.state().uploads.length,4);assert.equal(Object.keys(s.state().npm).length,2);const retained=artifacts(f),notes=f.journal().planning.plan;const clone=f.clone();s.control('');good(f.run('retry',{directory:clone}));assert.equal(s.state().uploads.length,5);assertRetained(f,retained);assert.deepEqual(f.journal().planning.plan,notes);assert.equal(f.journal().status,'complete');return {uploads:s.state().uploads,artifacts:retained};
  });
  for(const control of ['reject','reject-second','once-drop','once-drop-unreadable'])await run(`npm-recovery-${control}`,async()=>{
   const s=await service(),f=fixture(s,{count:control==='once-drop-unreadable'?1:2});s.control(control);const first=f.run('first');if(control==='once-drop')good(first);else bad(first);
