@@ -10,3 +10,5 @@ Named plugin loading is an explicit acceptance check and currently fails for the
 A separate HTTP-only Sigstore fixture uses pinned mock packages in `support/sigstore-tools`; install it with `npm ci --prefix support/sigstore-tools --ignore-scripts`. Live npm/crates.io OIDC is not established by synthetic fixtures. The mixed repository never publishes to public registries.
 
 The pinned npm 12.2.1 lane also reproduces `EWORKSPACEPUBLISH: npm pack did not produce a valid artifact`: npm 12 returns package-keyed JSON from `npm pack --json`. Native npm 11.21.1 is an explicit compatibility diagnostic lane and does not clear the npm 12 failure. Rust stable is pinned to 1.99.1 after execution-time channel verification.
+
+A controlled wrong-audience GitHub identity response also reaches npm exchange instead of failing locally. Two independent CLI reproductions retain sanitized counters. A supplied `NPM_ID_TOKEN` with the same invalid audience correctly fails before exchange. This tests the client's boundary only; the permissive test registry does not establish live npm acceptance.

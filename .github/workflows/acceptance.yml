@@ -25,6 +25,7 @@ jobs:
             lane: NPM11_COMPATIBILITY_WORKAROUND
           - node: 26.12.1
             npm: 12.2.1
+            lane: LATEST_NODE_NPM12
     steps:
       - uses: actions/checkout@v7.0.1
         with:
