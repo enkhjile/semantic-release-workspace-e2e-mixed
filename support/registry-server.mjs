@@ -80,8 +80,9 @@ const handler = async (req, res) => {
       ...(trusted.claims ?? {}),
       exp: Math.floor(Date.now() / 1000) + 300,
     };
+    if(trusted.omitAudience)delete claims.aud;
     const value = `${Buffer.from(JSON.stringify({ alg: 'RS256' })).toString('base64url')}.${Buffer.from(JSON.stringify(claims)).toString('base64url')}.fixture-signature`;
-    return json({ value });
+    return json({ value: Object.hasOwn(trusted,'tokenValue') ? trusted.tokenValue : value });
   }
   if (trusted && path.startsWith('/-/npm/v1/oidc/token/exchange/package/')) {
     if (trusted.rejectExchange)
@@ -103,9 +104,7 @@ const handler = async (req, res) => {
         token_type: 'oidc',
         token,
         created: new Date().toISOString(),
-        expires: new Date(
-          Date.now() + (trusted.expired ? -1000 : 3600000),
-        ).toISOString(),
+        expires: Object.hasOwn(trusted,'exchangeExpires') ? trusted.exchangeExpires : trusted.expiryMode==='seconds' ? Math.floor(Date.now()/1000)+(trusted.expired?-1:3600) : new Date(Date.now() + (trusted.expired ? -1000 : 3600000)).toISOString(),
       },
       201,
     );

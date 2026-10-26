@@ -22,7 +22,7 @@ jobs:
             lane: CANONICAL_NPM12
           - node: 24.22.1
             npm: 11.21.1
-            lane: NPM11_COMPATIBILITY_WORKAROUND
+            lane: NPM11_COMPATIBILITY
           - node: 26.12.1
             npm: 12.2.1
             lane: LATEST_NODE_NPM12
@@ -42,6 +42,7 @@ jobs:
       - run: npm ci --prefix support/sigstore-tools --ignore-scripts --no-audit --no-fund
       - run: node scripts/acceptance.mjs
         env:
+          EVIDENCE_LABEL: alpha3/${{ matrix.lane }}
           PACKAGING_LANE: ${{ matrix.lane }}
           EXPECTED_NPM: ${{ matrix.npm }}
           EXPECTED_NODE: ${{ matrix.node }}
@@ -49,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v7.0.2
         with:
           name: mixed-acceptance-evidence-${{ matrix.node }}-npm${{ matrix.npm }}
-          path: evidence/
+          path: evidence/alpha3/
