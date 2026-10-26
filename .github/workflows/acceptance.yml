@@ -1,6 +1,12 @@
 name: mixed acceptance
 on:
   workflow_dispatch:
+    inputs:
+      scenarios:
+        description: Optional comma-separated scenario name filters; empty runs all cases
+        type: string
+        required: false
+        default: ""
 permissions:
   contents: write
 concurrency:
@@ -43,6 +49,7 @@ jobs:
       - run: node scripts/acceptance.mjs
         env:
           EVIDENCE_LABEL: alpha3/${{ matrix.lane }}
+          SCENARIOS: ${{ inputs.scenarios }}
           PACKAGING_LANE: ${{ matrix.lane }}
           EXPECTED_NPM: ${{ matrix.npm }}
           EXPECTED_NODE: ${{ matrix.node }}
