@@ -6,10 +6,11 @@
   "files": [
     "index.js",
     "built.js",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "built.js"
   ],
   "scripts": {
-    "prepack": "node -e \"require('fs').writeFileSync('built.js',String(require('crypto').randomUUID()))\""
+    "prepack": "node -e \"const f=require('fs'),n=require('crypto').randomUUID();f.writeFileSync('built.js',n);if(process.env.PACK_LEDGER)f.appendFileSync(process.env.PACK_LEDGER,n+String.fromCharCode(10))\""
   },
   "dependencies": {
     "mixed-dual": "workspace:*"

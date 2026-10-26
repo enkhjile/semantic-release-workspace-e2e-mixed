@@ -4,3 +4,5 @@ target/
 built.js
 
 evidence/
+
+Cargo.lock
