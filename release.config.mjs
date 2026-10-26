@@ -1,13 +1,1 @@
-const registry = process.env.WORKSPACE_TEST_REGISTRY;
-if (!registry || !/^http:\/\/127\.0\.0\.1:\d+$/.test(registry)) {
-  throw new Error('Set WORKSPACE_TEST_REGISTRY to a controlled loopback registry; run npm test for the isolated matrix.');
-}
-export default {
-  branches: ['main', {name: 'alpha', prerelease: true}, {name: 'rc', prerelease: true}, 'next'],
-  tagFormat: 'workspace-v${version}',
-  plugins: [['semantic-release-workspace', {
-    changelog: true,
-    npm: {registry, trustedPublishing: false, provenance: false},
-    cargo: {registry: 'fixture', trustedPublishing: false},
-  }]],
-};
+const registry=process.env.WORKSPACE_TEST_REGISTRY;if(!/^http:\/\/127\.0\.0\.1:\d+$/.test(registry??''))throw Error('controlled loopback registry required');export default {branches:['main',{name:'alpha3-history-20261026033615',prerelease:'alpha3proof'}],repositoryUrl:'https://github.com/enkhjile/semantic-release-workspace-e2e-mixed',tagFormat:'workspace-v${version}',plugins:[['semantic-release-workspace',{changelog:true,npm:{registry,access:'public',trustedPublishing:false,provenance:false},cargo:{registry:'fixture',trustedPublishing:false}}]]};
