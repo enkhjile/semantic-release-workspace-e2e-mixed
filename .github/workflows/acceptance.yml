@@ -6,7 +6,7 @@ on:
         description: Optional comma-separated scenario name filters; empty runs all cases
         type: string
         required: false
-        default: ""
+        default: "alpha8-mixed,mixed-normal-native-artifacts-dry-nochange,mixed-partial-fresh-clone,alpha7-mixed-nested,settings-mixed-true-divergence-alpha-main-backmerge,settings-mixed-private-excluded-deepest-colocation,oidc-accepted-retry-credentials-1"
 permissions:
   contents: read
 concurrency:
@@ -41,7 +41,7 @@ jobs:
       - run: npm ci --prefix support/sigstore-tools --ignore-scripts --no-audit --no-fund
       - run: node scripts/acceptance.mjs
         env:
-          EVIDENCE_LABEL: alpha7/mixed/${{ matrix.lane }}
+          EVIDENCE_LABEL: alpha8/mixed/${{ matrix.lane }}
           SCENARIOS: ${{ inputs.scenarios || matrix.scenarios }}
           PACKAGING_LANE: ${{ matrix.lane }}
           EXPECTED_NPM: ${{ matrix.npm }}
@@ -50,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v7.0.2
         with:
           name: mixed-acceptance-evidence-${{ matrix.node }}-npm${{ matrix.npm }}
-          path: evidence/alpha7/mixed/
+          path: evidence/alpha8/mixed/
