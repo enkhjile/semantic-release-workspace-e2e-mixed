@@ -44,6 +44,7 @@ jobs:
         with:
           toolchain: 1.99.1
       - run: npm install --global npm@${{ matrix.npm }}
+      - run: npm install --global corepack@0.36.0
       - run: corepack pnpm install --frozen-lockfile --ignore-scripts
       - run: npm ci --prefix support/sigstore-tools --ignore-scripts --no-audit --no-fund
       - run: node scripts/acceptance.mjs
