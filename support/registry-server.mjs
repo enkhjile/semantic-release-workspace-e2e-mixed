@@ -189,12 +189,12 @@ const handler = async (req, res) => {
       writeFileSync(join(directory, 'control'), '');
     // Consumer-only fault: allow every npm package to complete before failing
     // the last Cargo member. This extends HTTP infrastructure, never product code.
-    const rejectLastCargo = control === 'reject-cargo-dual' &&
+    const rejectLastCargo = ['reject-cargo-dual','reject-cargo-deep'].includes(control) &&
       path === '/cargo/api/v1/crates/new' &&
-      JSON.parse(bytes.subarray(4, 4 + bytes.readUInt32LE(0))).name === 'mixed-dual';
+      JSON.parse(bytes.subarray(4, 4 + bytes.readUInt32LE(0))).name === (control==='reject-cargo-deep'?'mixed-deep':'mixed-dual');
     if (
       rejectLastCargo ||
-      (control !== 'reject-cargo-dual' && control.includes('reject') &&
+      (!['reject-cargo-dual','reject-cargo-deep'].includes(control) && control.includes('reject') &&
       (control !== 'reject-second' || state.uploads.length > 0))
     )
       return json({ error: 'injected rejection' }, 503);

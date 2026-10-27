@@ -8,7 +8,7 @@ on:
         required: false
         default: ""
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: workspace-release
   cancel-in-progress: false
@@ -53,7 +53,7 @@ jobs:
       - run: npm ci --prefix support/sigstore-tools --ignore-scripts --no-audit --no-fund
       - run: node scripts/acceptance.mjs
         env:
-          EVIDENCE_LABEL: alpha6-settings/mixed/${{ matrix.lane }}
+          EVIDENCE_LABEL: alpha7/mixed/${{ matrix.lane }}
           SCENARIOS: ${{ inputs.scenarios || matrix.scenarios }}
           PACKAGING_LANE: ${{ matrix.lane }}
           EXPECTED_NPM: ${{ matrix.npm }}
@@ -62,4 +62,4 @@ jobs:
         uses: actions/upload-artifact@v7.0.2
         with:
           name: mixed-acceptance-evidence-${{ matrix.node }}-npm${{ matrix.npm }}
-          path: evidence/alpha6-settings/mixed/
+          path: evidence/alpha7/mixed/

@@ -4,3 +4,4 @@ minimumReleaseAgeExclude:
   - semantic-release-workspace@1.0.0-alpha.3
   - semantic-release-workspace@1.0.0-alpha.4
   - semantic-release-workspace@1.0.0-alpha.6
+  - semantic-release-workspace@1.0.0-alpha.7
