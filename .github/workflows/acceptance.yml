@@ -44,11 +44,11 @@ jobs:
         with:
           toolchain: 1.99.1
       - run: npm install --global npm@${{ matrix.npm }}
-      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: corepack pnpm install --frozen-lockfile --ignore-scripts
       - run: npm ci --prefix support/sigstore-tools --ignore-scripts --no-audit --no-fund
       - run: node scripts/acceptance.mjs
         env:
-          EVIDENCE_LABEL: alpha4/mixed/${{ matrix.lane }}
+          EVIDENCE_LABEL: alpha6/mixed/${{ matrix.lane }}
           SCENARIOS: ${{ inputs.scenarios }}
           PACKAGING_LANE: ${{ matrix.lane }}
           EXPECTED_NPM: ${{ matrix.npm }}
@@ -57,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v7.0.2
         with:
           name: mixed-acceptance-evidence-${{ matrix.node }}-npm${{ matrix.npm }}
-          path: evidence/alpha4/mixed/
+          path: evidence/alpha6/mixed/
