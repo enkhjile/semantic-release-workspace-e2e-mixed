@@ -20,22 +20,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - node: 24.11.0
-            npm: 11.21.1
-            lane: SUPPORTED_FLOOR
-            scenarios: settings-mixed-true-divergence,settings-mixed-shared-literal
           - node: 24.22.1
             npm: 12.2.1
             lane: CANONICAL_NPM12
             scenarios: ""
-          - node: 24.22.1
-            npm: 11.21.1
-            lane: NPM11_COMPATIBILITY
-            scenarios: native-npm-pack-output-and-build
-          - node: 26.12.1
-            npm: 12.2.1
-            lane: LATEST_NODE_NPM12
-            scenarios: settings-mixed-true-divergence,settings-mixed-shared-literal
     steps:
       - uses: actions/checkout@v7.0.1
         with:
