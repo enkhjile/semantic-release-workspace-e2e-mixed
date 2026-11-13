@@ -1,9 +1,15 @@
-# Mixed ecosystem acceptance
+# Mixed workspace fixture
 
-Runs the unchanged registry artifact `semantic-release-workspace@1.0.0-alpha.3` by package name through semantic-release 25.0.9. Native npm 12.2.1 is canonical; Node 24.11.0/npm 11.21.1 is the floor, with current and latest Node matrix lanes. The fourth npm 11 compatibility lane is optional coverage. Rust is pinned to 1.99.1. No ESM or npm packaging workaround is used.
+The literal `alpha` branch contains a small mixed npm/Cargo workspace with colocated members and a Rust-only core. Every source manifest starts at `0.0.0`. The active `mixed-check.yml` workflow checks the native pnpm dependency link, executes both npm modules, and compiles/tests the Cargo workspace on pull requests and pushes to `alpha`.
 
-Private controlled npm and sparse Cargo registries publish neutral same-directory npm/Cargo packages with independent versions, inherited Cargo versions, Rust-only core, shared changelogs and native consumers. All identities and signing services are synthetic loopback controls; public registry uploads are zero. Windows/Tauri and hardware are outside scope.
+```sh
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm test
+cargo test --workspace --locked --offline
+```
 
-Install with `npm ci --ignore-scripts` and `npm ci --prefix support/sigstore-tools --ignore-scripts`; invoke `node scripts/acceptance.mjs` directly with the intended native npm on PATH. `npm test` changes PATH and can shadow the selected npm with a transitive dependency. The runner asserts expected Node/npm versions and records actual executable paths. A native pnpm lockfile is also retained and verified with frozen installation.
+Use Node 24.22.1, npm 12.2.1, pnpm 12.15.0 and Rust 1.99.1. This repository has no public publishing workflow or publisher identities. The registry named `fixture` is an inert loopback address used only by the neutral Cargo manifests.
 
-The dispatch-only workflow uses full history and one repository-wide release concurrency group. Every scenario has disposable remotes and registries. Recovery uses ordinary fresh clones and plugin/core fetches; there is no manual journal seeding. Logs, SHA-256 archives, source/ref snapshots, bundles and sanitized request counters are retained per run. Existing alpha.2 failures, bundles and refs remain historical evidence and are not reclassified.
+The old independent-version workflows, scripts, dependency pins and remote test refs were retired. Default `main` remains historical; its old manual `acceptance.yml` workflow is disabled. Historical source and refs are preserved in a verified local Git bundle outside this repository.
+
+Separate shared-version controlled acceptance already passed against product candidate `442b7b3ce5d576c0a6bec92a12031bfe1fd24c77`: 24 real semantic-release invocations, nine shared npm/Cargo batches, exact archive verification, partial retry from a fresh clone, dry-run/no-change checks, divergent stable/backmerge cycles, native consumers, and nested/private/excluded discovery. Its compact report, harness, logs and bundles are retained in the acceptance workspace at `tasks/shared-version-2026-11-12/mixed/`. The lightweight checks here do not claim to rerun that release suite or public OIDC acceptance.

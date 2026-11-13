@@ -1,1 +1,0 @@
-{"name":"controlled-sigstore-http-fixture","private":true,"type":"module","dependencies":{"@sigstore/mock":"0.12.1","@tufjs/repo-mock":"4.0.1"}}
