@@ -1,9 +1,9 @@
 name: mixed workspace checks
 on:
   pull_request:
-    branches: [alpha]
+    branches: [main, alpha]
   push:
-    branches: [alpha]
+    branches: [main, alpha]
 permissions:
   contents: read
 concurrency:
